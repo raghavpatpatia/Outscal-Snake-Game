@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Snake : MonoBehaviour
 {
+    [SerializeField] Transform segmentPrefab;
     private Vector2 direction;
+    private List<Transform> segments;
 
     private void Start()
     {
         direction = Vector2.up;
+        segments = new List<Transform>();
+        segments.Add(this.transform);
     }
 
     private void Update()
@@ -18,6 +22,11 @@ public class Snake : MonoBehaviour
 
     private void FixedUpdate()
     {
+        for (int i = segments.Count - 1; i > 0; i--)
+        {
+            segments[i].position = segments[i - 1].position;
+        }
+
         this.transform.position = new Vector3(
             Mathf.Round(this.transform.position.x) + direction.x, 
             Mathf.Round(this.transform.position.y) + direction.y, 
@@ -54,6 +63,21 @@ public class Snake : MonoBehaviour
             {
                 direction = Vector2.right;
             }
+        }
+    }
+
+    private void Grow()
+    {
+        Transform segment = Instantiate(this.segmentPrefab);
+        segment.position = segments[segments.Count - 1].position;
+        segments.Add(segment);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<Food>() != null)
+        {
+            Grow();
         }
     }
 }

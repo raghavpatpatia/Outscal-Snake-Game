@@ -806,6 +806,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1122508936, guid: 59b29313afa0e794cbb5cd3076a7b287, type: 3}
+      propertyPath: segmentPrefab
+      value: 
+      objectReference: {fileID: 1409877057202384266, guid: 159053343743ef848b39fc1a1d66bd6d, type: 3}
     - target: {fileID: 1355459870822465224, guid: 59b29313afa0e794cbb5cd3076a7b287, type: 3}
       propertyPath: m_Name
       value: SnakeHead
@@ -852,6 +856,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8479228168168059937, guid: 59b29313afa0e794cbb5cd3076a7b287, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933199957726623361, guid: 59b29313afa0e794cbb5cd3076a7b287, type: 3}
+      propertyPath: m_Color.b
+      value: 0.7583308
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933199957726623361, guid: 59b29313afa0e794cbb5cd3076a7b287, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933199957726623361, guid: 59b29313afa0e794cbb5cd3076a7b287, type: 3}
+      propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
