@@ -666,6 +666,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1278110795}
     - target: {fileID: 1122508936, guid: 59b29313afa0e794cbb5cd3076a7b287, type: 3}
+      propertyPath: gridArea
+      value: 
+      objectReference: {fileID: 1271940084}
+    - target: {fileID: 1122508936, guid: 59b29313afa0e794cbb5cd3076a7b287, type: 3}
       propertyPath: segmentPrefab
       value: 
       objectReference: {fileID: 1409877057202384266, guid: 159053343743ef848b39fc1a1d66bd6d, type: 3}

@@ -5,13 +5,12 @@ using UnityEngine;
 public class Snake : MonoBehaviour
 {
     [SerializeField] Transform segmentPrefab;
+    [SerializeField] BoxCollider2D gridArea;
     private Vector2 direction;
     public List<Transform> segments { get; private set; }
-    private Food food;
 
     private void Start()
     {
-        food = FindObjectOfType<Food>();
         direction = Vector2.up;
         segments = new List<Transform>();
         segments.Add(this.transform);
@@ -20,6 +19,7 @@ public class Snake : MonoBehaviour
     private void Update()
     {
         PlayerInput();
+        ScreenWrap();
     }
 
     private void FixedUpdate()
@@ -65,6 +65,31 @@ public class Snake : MonoBehaviour
             {
                 direction = Vector2.right;
             }
+        }
+    }
+
+    private void ScreenWrap()
+    {
+        Bounds bounds = this.gridArea.bounds;
+
+        if (this.transform.position.x > bounds.max.x)
+        {
+            transform.position = new Vector2(bounds.min.x, transform.position.y);
+        }
+
+        else if (this.transform.position.x < bounds.min.x)
+        {
+            transform.position = new Vector2(bounds.max.x, transform.position.y);
+        }
+
+        else if (this.transform.position.y > bounds.max.y)
+        {
+            transform.position = new Vector2(transform.position.x, bounds.min.y);
+        }
+
+        else if (this.transform.position.y < bounds.min.y)
+        {
+            transform.position = new Vector2(transform.position.x, bounds.max.y);
         }
     }
 
