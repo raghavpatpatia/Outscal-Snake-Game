@@ -6,10 +6,12 @@ public class Snake : MonoBehaviour
 {
     [SerializeField] Transform segmentPrefab;
     private Vector2 direction;
-    private List<Transform> segments;
+    public List<Transform> segments { get; private set; }
+    private Food food;
 
     private void Start()
     {
+        food = FindObjectOfType<Food>();
         direction = Vector2.up;
         segments = new List<Transform>();
         segments.Add(this.transform);
@@ -73,11 +75,32 @@ public class Snake : MonoBehaviour
         segments.Add(segment);
     }
 
+    private void Shrink()
+    {
+        if (segments.Count == 1)
+        {
+            Debug.Log("GameOver");
+        }
+        else
+        {
+            Destroy(segments[segments.Count - 1].gameObject);
+            segments.Remove(segments[segments.Count - 1]);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<Food>() != null)
+        Food collidedFood = collision.gameObject.GetComponent<Food>();
+        if (collidedFood != null)
         {
-            Grow();
+            if (collidedFood.GetFoodType() == FoodTypes.MassGainer)
+            {
+                Grow();
+            }
+            else if (collidedFood.GetFoodType() == FoodTypes.MassBurner)
+            {
+                Shrink();
+            }
         }
     }
 }

@@ -9,6 +9,11 @@ class Food : MonoBehaviour
 {
     [SerializeField] FoodTypes type;
 
+    public FoodTypes GetFoodType()
+    {
+        return type;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<Snake>() != null && type == FoodTypes.MassGainer)
