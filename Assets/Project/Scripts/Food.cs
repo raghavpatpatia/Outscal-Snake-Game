@@ -8,7 +8,12 @@ public enum FoodTypes
 class Food : MonoBehaviour
 {
     [SerializeField] FoodTypes type;
-    [SerializeField] Score score;
+    private Score score;
+
+    private void Start()
+    {
+        score = FindObjectOfType<Score>();
+    }
 
     public FoodTypes GetFoodType()
     {
@@ -19,11 +24,11 @@ class Food : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<Snake>() != null && type == FoodTypes.MassGainer)
         {
-            score.UpdateScore(10);
+            score.UpdateScore(1);
         }
         else if (collision.gameObject.GetComponent<Snake>() != null && type == FoodTypes.MassBurner)
         {
-            score.UpdateScore(-2);
+            score.UpdateScore(-1);
         }
     }
 }

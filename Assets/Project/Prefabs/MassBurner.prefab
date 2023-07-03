@@ -10,12 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4420450504637719270}
   - component: {fileID: 6937525595046047705}
-  - component: {fileID: 5874374575202719689}
   - component: {fileID: 3477457582312996937}
   - component: {fileID: 8694010944806823002}
   m_Layer: 0
-  m_Name: Spike
-  m_TagString: Untagged
+  m_Name: MassBurner
+  m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,19 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5874374575202719689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2944945907401863300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a92b75838d1bc464d853c9e193231f66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gridArea: {fileID: 0}
 --- !u!114 &3477457582312996937
 MonoBehaviour:
   m_ObjectHideFlags: 0

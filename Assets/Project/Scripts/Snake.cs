@@ -20,7 +20,7 @@ public class Snake : MonoBehaviour
         {
             segments.Add(Instantiate(this.segmentPrefab));
         }
-        FindObjectOfType<Pickup>().RandomizePosition();
+        FindObjectOfType<Pickup>().GeneratePickup();
     }
 
     private void Update()
@@ -142,6 +142,16 @@ public class Snake : MonoBehaviour
         {
             GameOver();
             Debug.Log("Snake Attacked itself.");
+        }
+
+        if (collision.gameObject.CompareTag("Pickup"))
+        {
+            GameObject collidedPickup = collision.gameObject;
+            if (FindObjectOfType<Pickup>().instantiatedPickup.Contains(collidedPickup))
+            {
+                FindObjectOfType<Pickup>().instantiatedPickup.Remove(collidedPickup);
+                Destroy(collidedPickup);
+            }
         }
     }
 }
