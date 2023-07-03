@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Snake : MonoBehaviour
 {
@@ -104,7 +106,7 @@ public class Snake : MonoBehaviour
     {
         if (segments.Count == 1)
         {
-            Debug.Log("GameOver");
+            GameOver();
         }
         else
         {
@@ -127,5 +129,16 @@ public class Snake : MonoBehaviour
                 Shrink();
             }
         }
+
+        else if (collision.gameObject.CompareTag("SnakeBody"))
+        {
+            GameOver();
+        }
+    }
+
+    private void GameOver()
+    {
+        Debug.Log("Game Over, restarting the level");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
