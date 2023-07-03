@@ -5,13 +5,16 @@ using UnityEngine;
 public class Pickup : MonoBehaviour
 {
     [SerializeField] BoxCollider2D gridArea;
+    [SerializeField] Snake snake;
+    private bool intersectsSnake;
 
     private void Start()
     {
-        RandomizePosition();
+        snake = FindObjectOfType<Snake>();
+        // RandomizePosition();
     }
 
-    private void RandomizePosition()
+    public void RandomizePosition()
     {
         Bounds bounds = this.gridArea.bounds;
 
@@ -20,7 +23,26 @@ public class Pickup : MonoBehaviour
 
         Vector2 randomPos = new Vector2(Mathf.Round(x), Mathf.Round(y));
 
-        this.transform.position = randomPos;
+        intersectsSnake = false;
+
+        foreach (Transform segment in snake.segments)
+        {
+            if (segment.position == (Vector3)randomPos)
+            {
+                intersectsSnake = true;
+                break;
+            }
+        }
+
+        if (intersectsSnake)
+        {
+            RandomizePosition();
+        }
+
+        else
+        {
+            this.transform.position = randomPos;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

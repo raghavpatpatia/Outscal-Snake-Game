@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,7 +8,7 @@ public class Snake : MonoBehaviour
     [SerializeField] BoxCollider2D gridArea;
     private Vector2 direction;
     [SerializeField] Score score;
-    private List<Transform> segments;
+    public List<Transform> segments { get; private set; }
     private int initialSize = 4;
 
     private void Start()
@@ -22,6 +20,7 @@ public class Snake : MonoBehaviour
         {
             segments.Add(Instantiate(this.segmentPrefab));
         }
+        FindObjectOfType<Pickup>().RandomizePosition();
     }
 
     private void Update()
@@ -37,10 +36,9 @@ public class Snake : MonoBehaviour
             segments[i].position = segments[i - 1].position;
         }
 
-        this.transform.position = new Vector3(
+        this.transform.position = new Vector2(
             Mathf.Round(this.transform.position.x) + direction.x, 
-            Mathf.Round(this.transform.position.y) + direction.y, 
-            0.0f
+            Mathf.Round(this.transform.position.y) + direction.y
         );
     }
 

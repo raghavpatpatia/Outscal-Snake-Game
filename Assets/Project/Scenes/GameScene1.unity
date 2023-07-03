@@ -1190,6 +1190,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5874374575202719689, guid: 5299c07bbee660b468f31e59496726f9, type: 3}
+      propertyPath: snake
+      value: 
+      objectReference: {fileID: 1595520830}
+    - target: {fileID: 5874374575202719689, guid: 5299c07bbee660b468f31e59496726f9, type: 3}
       propertyPath: gridArea
       value: 
       objectReference: {fileID: 1271940084}

@@ -3,7 +3,9 @@ guid: a92b75838d1bc464d853c9e193231f66
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - gridArea: {instanceID: 0}
+  - snake: {fileID: 1122508936, guid: 59b29313afa0e794cbb5cd3076a7b287, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
