@@ -20,17 +20,6 @@ public class Pickup : MonoBehaviour
 
         Vector2 randomPos = new Vector2(Mathf.Round(x), Mathf.Round(y));
 
-        //Collider2D collider = Physics2D.OverlapPoint(randomPos);
-        
-        //if (collider != null)
-        //{
-        //    SpriteRenderer spriteRenderer = collider.GetComponent<SpriteRenderer>();
-        //    if (spriteRenderer != null && (spriteRenderer.sortingLayerName == this.sortingLayerName))
-        //    {
-        //        RandomizePosition();
-        //    }
-        //}        
-
         this.transform.position = randomPos;
     }
 

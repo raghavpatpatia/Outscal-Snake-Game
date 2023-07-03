@@ -9,13 +9,19 @@ public class Snake : MonoBehaviour
     [SerializeField] Transform segmentPrefab;
     [SerializeField] BoxCollider2D gridArea;
     private Vector2 direction;
-    public List<Transform> segments { get; private set; }
+    [SerializeField] Score score;
+    private List<Transform> segments;
+    private int initialSize = 4;
 
     private void Start()
     {
         direction = Vector2.up;
         segments = new List<Transform>();
         segments.Add(this.transform);
+        for (int i = 1; i < initialSize; i++)
+        {
+            segments.Add(Instantiate(this.segmentPrefab));
+        }
     }
 
     private void Update()
@@ -78,22 +84,20 @@ public class Snake : MonoBehaviour
         {
             transform.position = new Vector2(bounds.min.x, transform.position.y);
         }
-
         else if (this.transform.position.x < bounds.min.x)
         {
             transform.position = new Vector2(bounds.max.x, transform.position.y);
         }
-
         else if (this.transform.position.y > bounds.max.y)
         {
             transform.position = new Vector2(transform.position.x, bounds.min.y);
         }
-
         else if (this.transform.position.y < bounds.min.y)
         {
             transform.position = new Vector2(transform.position.x, bounds.max.y);
         }
     }
+
 
     private void Grow()
     {
@@ -104,7 +108,7 @@ public class Snake : MonoBehaviour
 
     private void Shrink()
     {
-        if (segments.Count == 1)
+        if (score.GetScore() <= 0 || segments.Count == 1)
         {
             GameOver();
         }
@@ -113,6 +117,12 @@ public class Snake : MonoBehaviour
             Destroy(segments[segments.Count - 1].gameObject);
             segments.Remove(segments[segments.Count - 1]);
         }
+    }
+
+    private void GameOver()
+    {
+        Debug.Log("Game Over, restarting the level");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -133,12 +143,7 @@ public class Snake : MonoBehaviour
         else if (collision.gameObject.CompareTag("SnakeBody"))
         {
             GameOver();
+            Debug.Log("Snake Attacked itself.");
         }
-    }
-
-    private void GameOver()
-    {
-        Debug.Log("Game Over, restarting the level");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
