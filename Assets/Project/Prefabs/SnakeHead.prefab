@@ -149,3 +149,4 @@ MonoBehaviour:
   segmentPrefab: {fileID: 1409877057202384266, guid: 159053343743ef848b39fc1a1d66bd6d, type: 3}
   gridArea: {fileID: 0}
   score: {fileID: 0}
+  message: {fileID: 0}

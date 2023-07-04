@@ -270,6 +270,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &978132418 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 978132418, guid: f01cf1d9fa5142c4bb1b80ded0ceafe5, type: 3}
+  m_PrefabInstance: {fileID: 8536588528418442236}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9658f0c7ce186b5448e8609e421480b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &1271940084 stripped
 BoxCollider2D:
   m_CorrespondingSourceObject: {fileID: 4295623822297011603, guid: 9641489cc92878b48ac5232c517a71a2, type: 3}
@@ -422,6 +433,10 @@ PrefabInstance:
       propertyPath: score
       value: 
       objectReference: {fileID: 74048021}
+    - target: {fileID: 1122508936, guid: 59b29313afa0e794cbb5cd3076a7b287, type: 3}
+      propertyPath: message
+      value: 
+      objectReference: {fileID: 978132418}
     - target: {fileID: 1122508936, guid: 59b29313afa0e794cbb5cd3076a7b287, type: 3}
       propertyPath: gridArea
       value: 

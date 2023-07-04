@@ -8,6 +8,7 @@ public class Snake : MonoBehaviour
     [SerializeField] Transform segmentPrefab;
     [SerializeField] BoxCollider2D gridArea;
     [SerializeField] Score score;
+    [SerializeField] HiddenMessage message;
 
     public List<Transform> segments { get; private set; }
     public bool scoreBoost { get; private set; }
@@ -147,6 +148,7 @@ public class Snake : MonoBehaviour
     {
         if (score.GetScore() < 0)
         {
+            message.UpdateMessage("Snake Attacked Itself");
             GameOver();
         }
         else
@@ -158,7 +160,7 @@ public class Snake : MonoBehaviour
 
     private void GameOver()
     {
-        Debug.Log("Game Over, restarting the level");
+        message.UpdateMessage("Restarting the game");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -176,7 +178,7 @@ public class Snake : MonoBehaviour
             {
                 if (hasShield == true)
                 {
-                    Debug.Log("Shield is activated.");
+                    message.UpdateMessage("Shield is activated.");
                 }
                 else
                 {
@@ -189,16 +191,19 @@ public class Snake : MonoBehaviour
         {
             if (collidedPowerup.GetPowerupType() == PowerupTypes.Speed)
             {
+                message.UpdateMessage("Pickup Speed");
                 speed = true;
                 SpeedPowerup();
             }
             else if (collidedPowerup.GetPowerupType() == PowerupTypes.ScoreBoost)
             {
+                message.UpdateMessage("Pickup Score Boost");
                 scoreBoost = true;
                 ScoreBoostandShieldPowerup();
             }
             else if (collidedPowerup.GetPowerupType() == PowerupTypes.Shield)
             {
+                message.UpdateMessage("Pickup Shield");
                 hasShield = true;
                 ScoreBoostandShieldPowerup();
             }
@@ -208,12 +213,12 @@ public class Snake : MonoBehaviour
         {
             if (hasShield)
             {
-                Debug.Log("Shield is activated so nothing happened.");
+                message.UpdateMessage("Shield is activated.");
             }
             else
             {
+                message.UpdateMessage("Snake Attacked Itself");
                 GameOver();
-                Debug.Log("Snake Attacked itself.");
             }         
         }
 
