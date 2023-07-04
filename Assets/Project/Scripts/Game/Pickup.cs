@@ -17,8 +17,8 @@ public class Pickup : MonoBehaviour
 
     public void GeneratePickup()
     {
-        InvokeRepeating("RandomizePosition", 0f, 5f);
-        InvokeRepeating("DestroyPickup", 5f, 5f);
+        InvokeRepeating("RandomizePosition", 0f, 8f);
+        InvokeRepeating("DestroyPickup", 8f, 8f);
     }
 
     private void RandomizePosition()

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,10 +7,15 @@ public class Snake : MonoBehaviour
 {
     [SerializeField] Transform segmentPrefab;
     [SerializeField] BoxCollider2D gridArea;
-    private Vector2 direction;
     [SerializeField] Score score;
+
     public List<Transform> segments { get; private set; }
+    public bool scoreBoost { get; private set; }
+    public bool hasShield { get; private set; }
+    private bool speed;
     private int initialSize = 4;
+    private Vector2 direction;
+    private IEnumerator powerupTime;
 
     private void Start()
     {
@@ -40,6 +46,39 @@ public class Snake : MonoBehaviour
             Mathf.Round(this.transform.position.x) + direction.x, 
             Mathf.Round(this.transform.position.y) + direction.y
         );
+    }
+
+    private void PowerupCoroutine()
+    {
+        if (powerupTime != null)
+        {
+            StopCoroutine(powerupTime);
+        }
+        powerupTime = PowerupActiveTime();
+        StartCoroutine(powerupTime);
+    }
+
+    private void SpeedPowerup()
+    {
+        if (speed)
+        {
+            Time.fixedDeltaTime = 0.05f;
+            PowerupCoroutine();
+            speed = false;
+        }
+    }
+
+    private void ScoreBoostandShieldPowerup()
+    {
+        PowerupCoroutine();
+    }
+
+    private IEnumerator PowerupActiveTime()
+    {
+        yield return new WaitForSeconds(3f);
+        Time.fixedDeltaTime = 0.1f;
+        scoreBoost = false;
+        hasShield = false;
     }
 
     private void PlayerInput()
@@ -106,7 +145,7 @@ public class Snake : MonoBehaviour
 
     private void Shrink()
     {
-        if (score.GetScore() <= 0 || segments.Count == 1)
+        if (score.GetScore() < 0)
         {
             GameOver();
         }
@@ -126,6 +165,7 @@ public class Snake : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Food collidedFood = collision.gameObject.GetComponent<Food>();
+        Powerup collidedPowerup = collision.gameObject.GetComponent<Powerup>();
         if (collidedFood != null)
         {
             if (collidedFood.GetFoodType() == FoodTypes.MassGainer)
@@ -134,14 +174,47 @@ public class Snake : MonoBehaviour
             }
             else if (collidedFood.GetFoodType() == FoodTypes.MassBurner)
             {
-                Shrink();
+                if (hasShield == true)
+                {
+                    Debug.Log("Shield is activated.");
+                }
+                else
+                {
+                    Shrink();
+                }
+            }
+        }
+
+        else if (collidedPowerup != null)
+        {
+            if (collidedPowerup.GetPowerupType() == PowerupTypes.Speed)
+            {
+                speed = true;
+                SpeedPowerup();
+            }
+            else if (collidedPowerup.GetPowerupType() == PowerupTypes.ScoreBoost)
+            {
+                scoreBoost = true;
+                ScoreBoostandShieldPowerup();
+            }
+            else if (collidedPowerup.GetPowerupType() == PowerupTypes.Shield)
+            {
+                hasShield = true;
+                ScoreBoostandShieldPowerup();
             }
         }
 
         else if (collision.gameObject.CompareTag("SnakeBody"))
         {
-            GameOver();
-            Debug.Log("Snake Attacked itself.");
+            if (hasShield)
+            {
+                Debug.Log("Shield is activated so nothing happened.");
+            }
+            else
+            {
+                GameOver();
+                Debug.Log("Snake Attacked itself.");
+            }         
         }
 
         if (collision.gameObject.CompareTag("Pickup"))
