@@ -23,7 +23,47 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        PlayBGMusic(Sounds.BackgroundMusic);
+    }
 
+    private void PlayBGMusic(Sounds sound)
+    {
+        AudioClip clip = GetAudioClip(sound);
+        if (clip != null)
+        {
+            soundMusic.clip = clip;
+            soundMusic.Play();
+        }
+        else
+        {
+            Debug.LogError("Clip not found: " + sound);
+        }
+    }
+
+    public void PlayMusic(Sounds sound)
+    {
+        AudioClip clip = GetAudioClip(sound);
+        if (clip != null)
+        {
+            soundEffect.PlayOneShot(clip);
+        }
+        else
+        {
+            Debug.LogError("Clip not found: " + sound);
+        }
+    }
+
+    private AudioClip GetAudioClip(Sounds sound)
+    {
+        SoundType item = Array.Find(sounds, i => i.soundType == sound);
+        if (item != null)
+        {
+            return item.soundClip;
+        }
+        return null;
+    }
 }
 
 [Serializable]
