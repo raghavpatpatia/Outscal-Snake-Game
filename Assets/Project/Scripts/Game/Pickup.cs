@@ -13,6 +13,7 @@ public class Pickup : MonoBehaviour
     private void Start()
     {
         instantiatedPickup = new List<GameObject>();
+        GeneratePickup();
     }
 
     public void GeneratePickup()

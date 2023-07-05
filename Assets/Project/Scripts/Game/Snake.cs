@@ -9,6 +9,10 @@ public class Snake : MonoBehaviour
     [SerializeField] BoxCollider2D gridArea;
     [SerializeField] Score score;
     [SerializeField] HiddenMessage message;
+    [SerializeField] KeyCode up;
+    [SerializeField] KeyCode down;
+    [SerializeField] KeyCode left;
+    [SerializeField] KeyCode right;
 
     public List<Transform> segments { get; private set; }
     public bool scoreBoost { get; private set; }
@@ -27,7 +31,6 @@ public class Snake : MonoBehaviour
         {
             segments.Add(Instantiate(this.segmentPrefab));
         }
-        FindObjectOfType<Pickup>().GeneratePickup();
     }
 
     private void Update()
@@ -84,28 +87,28 @@ public class Snake : MonoBehaviour
 
     private void PlayerInput()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(up))
         {
             if (direction.y != -1)
             {
                 direction = Vector2.up;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Input.GetKeyDown(down))
         {
             if (direction.y != 1)
             {
                 direction = Vector2.down;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (Input.GetKeyDown(left))
         {
             if (direction.x != 1)
             {
                 direction = Vector2.left;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        else if (Input.GetKeyDown(right))
         {
             if (direction.x != -1)
             {
@@ -142,6 +145,14 @@ public class Snake : MonoBehaviour
         Transform segment = Instantiate(this.segmentPrefab);
         segment.position = segments[segments.Count - 1].position;
         segments.Add(segment);
+        if (scoreBoost == true)
+        {
+            score.UpdateScore(2);
+        }
+        else
+        {
+            score.UpdateScore(1);
+        }
     }
 
     private void Shrink()
@@ -155,6 +166,10 @@ public class Snake : MonoBehaviour
         {
             Destroy(segments[segments.Count - 1].gameObject);
             segments.Remove(segments[segments.Count - 1]);
+            if (hasShield != true)
+            {
+                score.UpdateScore(-1);
+            }
         }
     }
 
