@@ -6,6 +6,8 @@ TagManager:
   tags:
   - SnakeBody
   - Pickup
+  - SnakeBodyPlayer2
+  - Player2
   layers:
   - Default
   - TransparentFX
