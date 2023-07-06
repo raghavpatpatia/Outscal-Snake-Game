@@ -21,5 +21,6 @@ This is a classic Snake Game with a 2-Player Co-op mode.
 
 - Your shield will not protect you against Player 2.
 - If your score becomes less than 0 or if you collide with yourself, you will lose the game.
+- Press escape to pause the game.
 
 Have fun playing the game!
