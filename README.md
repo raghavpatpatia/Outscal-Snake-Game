@@ -25,6 +25,8 @@ This is a classic Snake Game with a 2-Player Co-op mode.
 
 Have fun playing the game!
 
+[Play the Game on itch.io](https://raghavpatpatia.itch.io/2-player-snake-game)
+
 [![2D Snake Game](https://img.youtube.com/vi/psSJ7j_1k60/0.jpg)](https://www.youtube.com/watch?v=psSJ7j_1k60)
 
 
