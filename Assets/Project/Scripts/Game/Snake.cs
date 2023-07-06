@@ -160,6 +160,7 @@ public class Snake : MonoBehaviour
         if (score.GetScore() <= 0)
         {
             message.UpdateGameOverText("Score less than 0");
+            SoundManager.Instance.PlayMusic(Sounds.SnakeDeath);
             GameOver();
         }
         else
@@ -200,6 +201,7 @@ public class Snake : MonoBehaviour
         Powerup collidedPowerup = collision.gameObject.GetComponent<Powerup>();
         if (collidedFood != null)
         {
+            SoundManager.Instance.PlayMusic(Sounds.Pickup);
             if (collidedFood.GetFoodType() == FoodTypes.MassGainer)
             {
                 Grow();
@@ -219,6 +221,7 @@ public class Snake : MonoBehaviour
 
         else if (collidedPowerup != null)
         {
+            SoundManager.Instance.PlayMusic(Sounds.Pickup);
             if (collidedPowerup.GetPowerupType() == PowerupTypes.Speed)
             {
                 message.UpdateHiddenMessage("Pickup Speed");
@@ -243,10 +246,12 @@ public class Snake : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Player"))
             {
+                SoundManager.Instance.PlayMusic(Sounds.SnakeDeath);
                 SnakeAttackSelf();
             }
             else if (collision.gameObject.CompareTag("Player2"))
             {
+                SoundManager.Instance.PlayMusic(Sounds.SnakeDeath);
                 SnakeAttackOther("Blue Snake wins.");
             }
         }
@@ -255,10 +260,12 @@ public class Snake : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Player2"))
             {
+                SoundManager.Instance.PlayMusic(Sounds.SnakeDeath);
                 SnakeAttackSelf();
             }
             else if (collision.gameObject.CompareTag("Player"))
             {
+                SoundManager.Instance.PlayMusic(Sounds.SnakeDeath);
                 SnakeAttackOther("Red Snake wins.");
             }
         }

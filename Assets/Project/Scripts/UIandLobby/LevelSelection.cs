@@ -13,6 +13,7 @@ public class LevelSelection : MonoBehaviour
 
     private void SelectGameMode()
     {
+        SoundManager.Instance.PlayMusic(Sounds.ButtonClick);
         SceneManager.LoadScene(loadScene);
     }
 }

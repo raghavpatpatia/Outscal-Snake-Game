@@ -26,6 +26,7 @@ public class GameHandeler : MonoBehaviour
 
     private void PlayButtonClick()
     {
+        SoundManager.Instance.PlayMusic(Sounds.ButtonClick);
         pausePanel.SetActive(false);
         Time.timeScale = 1;
     }

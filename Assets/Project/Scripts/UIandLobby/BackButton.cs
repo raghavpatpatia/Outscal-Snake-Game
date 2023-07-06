@@ -14,6 +14,7 @@ public class BackButton : MonoBehaviour
 
     private void BackButtonClick()
     {
+        SoundManager.Instance.PlayMusic(Sounds.ButtonClick);
         OtherPanel.SetActive(false);
         gamePanel.SetActive(true);
     }

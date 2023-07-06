@@ -78,6 +78,5 @@ public enum Sounds
     BackgroundMusic,
     ButtonClick,
     Pickup,
-    WinMusic,
-    LoseMusic
+    SnakeDeath
 }

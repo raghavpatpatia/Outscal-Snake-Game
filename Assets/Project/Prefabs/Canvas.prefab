@@ -1241,7 +1241,6 @@ GameObject:
   - component: {fileID: 7979591897879598288}
   - component: {fileID: 1722049494887514464}
   - component: {fileID: 5437829628307195094}
-  - component: {fileID: 978132418}
   m_Layer: 5
   m_Name: Flying Text
   m_TagString: Untagged
@@ -1366,18 +1365,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &978132418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7465770662744000142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9658f0c7ce186b5448e8609e421480b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8536588528357190125
 GameObject:
   m_ObjectHideFlags: 0
