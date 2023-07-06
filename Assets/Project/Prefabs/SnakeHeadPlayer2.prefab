@@ -146,7 +146,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f17b1ada026f9b479af66574b56ed56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  segmentPrefab: {fileID: 1409877057202384266, guid: 159053343743ef848b39fc1a1d66bd6d, type: 3}
+  segmentPrefab: {fileID: 7725558589941696666, guid: a4e5fb2f3247589479908f080ba57ee4, type: 3}
   gridArea: {fileID: 0}
   score: {fileID: 0}
   message: {fileID: 0}
+  up: 119
+  down: 115
+  left: 97
+  right: 100
+  player: 1

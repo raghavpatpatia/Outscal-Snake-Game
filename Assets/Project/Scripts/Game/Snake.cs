@@ -1,18 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
+public enum Player
+{
+    Player1, Player2
+}
 
 public class Snake : MonoBehaviour
 {
     [SerializeField] Transform segmentPrefab;
     [SerializeField] BoxCollider2D gridArea;
     [SerializeField] Score score;
-    [SerializeField] HiddenMessage message;
     [SerializeField] KeyCode up;
     [SerializeField] KeyCode down;
     [SerializeField] KeyCode left;
     [SerializeField] KeyCode right;
+    [SerializeField] Player player;
+    [SerializeField] GameHandeler gameHandeler;
+    [SerializeField] Message message;
 
     public List<Transform> segments { get; private set; }
     public bool scoreBoost { get; private set; }
@@ -47,7 +54,7 @@ public class Snake : MonoBehaviour
         }
 
         this.transform.position = new Vector2(
-            Mathf.Round(this.transform.position.x) + direction.x, 
+            Mathf.Round(this.transform.position.x) + direction.x,
             Mathf.Round(this.transform.position.y) + direction.y
         );
     }
@@ -68,7 +75,6 @@ public class Snake : MonoBehaviour
         {
             Time.fixedDeltaTime = 0.05f;
             PowerupCoroutine();
-            speed = false;
         }
     }
 
@@ -83,6 +89,7 @@ public class Snake : MonoBehaviour
         Time.fixedDeltaTime = 0.1f;
         scoreBoost = false;
         hasShield = false;
+        speed = false;
     }
 
     private void PlayerInput()
@@ -145,38 +152,46 @@ public class Snake : MonoBehaviour
         Transform segment = Instantiate(this.segmentPrefab);
         segment.position = segments[segments.Count - 1].position;
         segments.Add(segment);
-        if (scoreBoost == true)
-        {
-            score.UpdateScore(2);
-        }
-        else
-        {
-            score.UpdateScore(1);
-        }
+        score.UpdateScore(scoreBoost ? 2 : 1);
     }
 
     private void Shrink()
     {
-        if (score.GetScore() < 0)
+        if (score.GetScore() <= 0)
         {
-            message.UpdateMessage("Snake Attacked Itself");
+            message.UpdateHiddenMessage("Snake Attacked Itself");
             GameOver();
         }
         else
         {
             Destroy(segments[segments.Count - 1].gameObject);
             segments.Remove(segments[segments.Count - 1]);
-            if (hasShield != true)
-            {
-                score.UpdateScore(-1);
-            }
+            score.UpdateScore(hasShield ? 0 : -1);
         }
     }
 
     private void GameOver()
     {
-        message.UpdateMessage("Restarting the game");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        gameHandeler.GameOverPanel();
+    }
+
+    private void SnakeAttackSelf()
+    {
+        if (hasShield)
+        {
+            message.UpdateHiddenMessage("Shield is activated");
+        }
+        else
+        {
+            message.UpdateHiddenMessage("Snake attacked itself");
+            GameOver();
+        }
+    }
+
+    private void SnakeAttackOther(string message)
+    {
+        this.message.UpdateGameOverText(message);
+        GameOver();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -193,7 +208,7 @@ public class Snake : MonoBehaviour
             {
                 if (hasShield == true)
                 {
-                    message.UpdateMessage("Shield is activated.");
+                    message.UpdateHiddenMessage("Shield is activated");
                 }
                 else
                 {
@@ -206,35 +221,46 @@ public class Snake : MonoBehaviour
         {
             if (collidedPowerup.GetPowerupType() == PowerupTypes.Speed)
             {
-                message.UpdateMessage("Pickup Speed");
+                message.UpdateHiddenMessage("Pickup Speed");
                 speed = true;
                 SpeedPowerup();
             }
             else if (collidedPowerup.GetPowerupType() == PowerupTypes.ScoreBoost)
             {
-                message.UpdateMessage("Pickup Score Boost");
+                message.UpdateHiddenMessage("Pickup ScoreBoost");
                 scoreBoost = true;
                 ScoreBoostandShieldPowerup();
             }
             else if (collidedPowerup.GetPowerupType() == PowerupTypes.Shield)
             {
-                message.UpdateMessage("Pickup Shield");
+                message.UpdateHiddenMessage("Pickup Shield");
                 hasShield = true;
                 ScoreBoostandShieldPowerup();
             }
         }
 
-        else if (collision.gameObject.CompareTag("SnakeBody"))
+        else if (player == Player.Player1)
         {
-            if (hasShield)
+            if (collision.gameObject.CompareTag("Player"))
             {
-                message.UpdateMessage("Shield is activated.");
+                SnakeAttackSelf();
             }
-            else
+            else if (collision.gameObject.CompareTag("Player2"))
             {
-                message.UpdateMessage("Snake Attacked Itself");
-                GameOver();
-            }         
+                SnakeAttackOther("Blue Snake wins.");
+            }
+        }
+
+        else if (player == Player.Player2)
+        {
+            if (collision.gameObject.CompareTag("Player2"))
+            {
+                SnakeAttackSelf();
+            }
+            else if (collision.gameObject.CompareTag("Player"))
+            {
+                SnakeAttackOther("Red Snake wins.");
+            }
         }
 
         if (collision.gameObject.CompareTag("Pickup"))

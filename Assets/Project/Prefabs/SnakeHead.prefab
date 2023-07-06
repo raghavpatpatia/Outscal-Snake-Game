@@ -150,3 +150,8 @@ MonoBehaviour:
   gridArea: {fileID: 0}
   score: {fileID: 0}
   message: {fileID: 0}
+  up: 273
+  down: 274
+  left: 276
+  right: 275
+  player: 0
