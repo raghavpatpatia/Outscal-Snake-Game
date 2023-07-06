@@ -24,3 +24,7 @@ This is a classic Snake Game with a 2-Player Co-op mode.
 - Press escape to pause the game.
 
 Have fun playing the game!
+
+[![2D Snake Game](https://img.youtube.com/vi/psSJ7j_1k60/0.jpg)](https://www.youtube.com/watch?v=psSJ7j_1k60)
+
+
