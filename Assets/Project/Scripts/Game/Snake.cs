@@ -159,7 +159,7 @@ public class Snake : MonoBehaviour
     {
         if (score.GetScore() <= 0)
         {
-            message.UpdateHiddenMessage("Snake Attacked Itself");
+            message.UpdateGameOverText("Score less than 0");
             GameOver();
         }
         else
@@ -183,7 +183,7 @@ public class Snake : MonoBehaviour
         }
         else
         {
-            message.UpdateHiddenMessage("Snake attacked itself");
+            message.UpdateGameOverText(player.ToString() + " attacked itself");
             GameOver();
         }
     }
